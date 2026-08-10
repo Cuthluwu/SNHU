@@ -1,33 +1,26 @@
-# CS 465 Module 7 — Security and Authenticated Administration
+# CS 465 Final Portfolio — Travlr Getaways
 
 **Student:** Madison Parker  
 **Course:** CS 465 Full Stack Development  
-**Branch:** `module7`
+**Branch:** `final`
 
-Module Seven completed the security layer for the Travlr Getaways administrator SPA. I added local user registration and login, salted password hashing, Passport authentication, one-hour JSON Web Tokens, protected write endpoints, browser token storage, and an Angular HTTP interceptor that attaches the token to authorized API requests.
+This folder contains the final CS 465 Travlr Getaways source organized for portfolio review. The application was developed across the course from a static customer-facing Express site into a MEAN-stack application with MongoDB, Express, Angular, and Node.js.
 
-## Security implementation
+## Final application structure
 
-- Added a MongoDB user model that stores a random salt and PBKDF2-derived password hash rather than a plain-text password.
-- Added `POST /api/register` and `POST /api/login`.
-- Configured Passport with a local strategy that authenticates by email and password.
-- Generated JWTs that expire after one hour.
-- Kept trip GET endpoints public while protecting POST, PUT, and DELETE operations with Bearer-token validation.
-- Added an Angular admin login form, authentication service, local token storage, login/logout navigation, and JWT interceptor.
-- Limited Add, Edit, and Delete controls to an authenticated administrator session.
+- `travlr/app_server` — Express MVC routes, controllers, Handlebars views, and partials for the customer-facing application.
+- `travlr/app_api` — REST controllers, Mongoose models, user authentication, Passport configuration, and protected API routes.
+- `travlr/app_admin` — Angular administrator SPA with trip listing, reusable trip cards, add/edit forms, login, authentication service, and JWT interceptor.
+- `travlr/data` — repeatable MongoDB seed data for the original Travlr trip records.
+- `travlr/postman` — API collections used during REST and security testing in the completed local project.
+- `MODULE7_TESTING_RESULTS.md` — concise record of the final authentication and protected CRUD verification.
 
-## Final security testing
+## Final verified behavior
 
-I verified the security flow with Postman and the Angular SPA using the completed local application:
+The completed local project was tested before this portfolio submission. Registration and login each returned HTTP 200 with a JWT. A protected trip POST without a token returned HTTP 401, while the authenticated POST returned HTTP 201. The Angular SPA then successfully updated the test record, and the authenticated DELETE returned HTTP 200. After cleanup, the administrator listing returned to the original three seeded trips.
 
-- Registration returned **HTTP 200** with a JWT.
-- Login returned **HTTP 200** with a JWT.
-- A protected trip POST without an Authorization header returned **HTTP 401**.
-- The same protected POST with a valid JWT returned **HTTP 201**.
-- The authenticated SPA successfully updated the Module Seven test trip.
-- The authenticated DELETE returned **HTTP 200**.
-- After the test record was removed, the SPA returned to the original three seeded trips.
+The repository does not publish the local `.env` file. `.env.example` documents the required `JWT_SECRET` variable without exposing the development secret.
 
-The `.env` file is intentionally excluded from Git. Only `.env.example` is kept in the repository so no development JWT secret is published.
+The full Module Eight Architecture, Functionality, Testing, and Reflection responses are in the repository-root `README.md`, with a separate written submission in `MODULE8_JOURNAL_MADISON_PARKER.md`.
 
 — Madison Parker
